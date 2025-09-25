@@ -1,0 +1,43 @@
+{
+  "name": "backend_api",
+  "version": "1.0.0",
+  "main": "app.ts",
+  "scripts": {
+    "dev": "tsx watch --clear-screen=false src/index.ts",
+    "build": "pnpm install & pnpm db:push & npx rimraf dist & npx tsup",
+    "start": "node dist/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@types/morgan": "^1.9.10",
+    "bcryptjs": "^3.0.2",
+    "class-transformer": "^0.5.1",
+    "cors": "^2.8.5",
+    "dayjs": "^1.11.13",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "http-status-codes": "^2.3.0",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.1",
+    "mysql2": "^3.14.3",
+    "redis": "^4.7.1",
+    "reflect-metadata": "^0.2.2",
+    "ws": "^8.18.3",
+    "zod": "^4.1.1"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^24.2.0",
+    "@types/ws": "^8.18.1",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.20.5",
+    "typeorm": "^0.3.25",
+    "typescript": "^5.9.2"
+  }
+}
