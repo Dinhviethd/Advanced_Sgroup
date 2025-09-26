@@ -21,7 +21,7 @@ app.use(cors({ origin: appEnv.CORS_ORIGIN, credentials: true }));
 app.use(helmet());
 app.use(morgan("combined"));
 
-
+app.use("/auth", Modules.authRoutes);
 app.use("/health-check", Modules.healthCheckRouter);
 
 app.use(openAPIRouter);
