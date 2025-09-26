@@ -1,27 +1,44 @@
-import { ErrorRequestHandler, NextFunction, Request, Response } from "express";
-import {AppError} from '@/common/utils/error.response'
-import { ZodError } from "zod";
-const notFound = (req:Request, res: Response, next: NextFunction) => {
-    next(new AppError(404, `Cannot find route ${req.method} ${req.originalUrl}` ));
-}
-const handleZodError = (res: Response, err: ZodError) => {
-    const errorArr= err.issues.map((error) => ({
-        path: error.path.join("."),
-        message: error.message
-    }))
-    return res.status(400).json({
-        success: false,
-        errors: errorArr
-    })
-}
-const errorHandler: ErrorRequestHandler = (err: AppError ,req,  res, next) =>{
-    if (err instanceof ZodError) return handleZodError(res, err);
-    const errorCode= err.statusCode === 200 ? 500 : err.statusCode 
-    return res.status(errorCode).json({
-        status: errorCode,
-        success: false,
-        message: err.message,
-        path: req.path,
-    })
-}
-export default {errorHandler, notFound}
+import { Response, ErrorRequestHandler } from "express";
+import { z } from "zod";
+import AppError from "@/common/utils/AppError";
+import { BAD_REQUEST, INTERNAL_SERVER_ERROR } from "@/common/const/constants";
+import { REFRESH_PATH, clearAuthCookies } from "@/common/utils/cookies";
+
+const handleZodError = (res: Response, error: z.ZodError) => {
+  const errors = error.issues.map((err) => ({
+    path: err.path.join("."),
+    message: err.message,
+  }));
+
+  return res.status(BAD_REQUEST).json({
+    errors,
+    message: error.message,
+  });
+};
+
+const handleAppError = (res: Response, error: AppError) => {
+  return res.status(error.statusCode).json({
+    message: error.message,
+    errorCode: error.errorCode,
+  });
+};
+
+const errorHandler: ErrorRequestHandler = (error, req, res, next) => {
+  console.log(`PATH ${req.path}`, error);
+
+  if (req.path === REFRESH_PATH) {
+    clearAuthCookies(res);
+  }
+
+  if (error instanceof z.ZodError) {
+    return handleZodError(res, error);
+  }
+
+  if (error instanceof AppError) {
+    return handleAppError(res, error);
+  }
+
+  return res.status(INTERNAL_SERVER_ERROR).send("Internal server error");
+};
+
+export default errorHandler;

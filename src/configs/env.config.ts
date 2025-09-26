@@ -9,6 +9,8 @@ const envSchema = z.object({
   HOST: z.string().default(isTest ? 'localhost' : 'localhost'),
   PORT: z.coerce.number().default(isTest ? 3000 : 3000),
   CORS_ORIGIN: z.string().default(isTest ? 'http://localhost:3000' : 'http://localhost:3000'),
+  RESEND_API_KEY: z.string(),
+  EMAIL_SENDER: z.email(),
 });
 export const appEnv = envSchema.parse(process.env);
 

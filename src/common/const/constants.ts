@@ -2,6 +2,17 @@ export enum verifiedCodeType{
   EmailVerification = "email_verification",
   PasswordVerification = "password_reset"
 }
+
+
+export enum userRole{
+  User = "User",
+  Admin = "Admin",
+}
+
+export enum AppErrorCode {
+  InvalidAccessToken = "InvalidAccessToken",
+}
+
 export const OK = 200;
 export const CREATED = 201;
 export const BAD_REQUEST = 400;
