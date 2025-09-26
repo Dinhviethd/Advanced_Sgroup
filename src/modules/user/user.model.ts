@@ -1,32 +1,32 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, CreateDateColumn } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn } from "typeorm"
 import { VerifiedCode } from "@/modules/verificationCode/verification.model"
 @Entity()
 export class User {
     @PrimaryGeneratedColumn()
     idUser!: number
 
-    @Column()
+    @Column({ type: "varchar", length: 255, unique: true })
     email!: string;
 
-    @Column()
+    @Column({ type: "varchar", length: 255})
     fullName!: string;
 
-    @Column()
+    @Column({ type: "varchar", length: 20, nullable: true })
     phone?: string;
 
-    @Column({ default: false })
+    @Column({ type: "boolean", default: false })
     emailVerified?: boolean;
 
-    @Column()
+    @Column({ type: "varchar", length: 255 })
     password!: string;
 
-    @Column()
+    @Column({ type: "varchar", length: 255, nullable: true })
     avatar?: string;
 
-    @Column()
+    @Column({ type: "varchar", length: 255, nullable: true })
     resetPwdToken?: string
 
-    @Column()
+    @Column({ type: "timestamp", nullable: true })
     resetPwdExpiry?: Date;
 
     @CreateDateColumn({

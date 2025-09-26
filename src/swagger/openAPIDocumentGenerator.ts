@@ -1,7 +1,5 @@
-import {
-  OpenApiGeneratorV3,
-  OpenAPIRegistry,
-} from "@asteasolutions/zod-to-openapi";
+import { OpenApiGeneratorV3, OpenAPIRegistry, extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi';
+import { z } from 'zod';
 
 import {
   SWAGGER_API_DESCRIPTION,
@@ -12,6 +10,8 @@ import {
 import { Registries } from "../modules";
 
 export function generateOpenAPIDocument() {
+  // Đảm bảo chỉ extend một lần (idempotent). Gọi an toàn mỗi lần generate.
+  extendZodWithOpenApi(z);
   const registry = new OpenAPIRegistry([...Registries]);
 
   registry.registerComponent("securitySchemes", "bearerAuth", {

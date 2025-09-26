@@ -1,5 +1,5 @@
 import { OpenAPIRegistry } from "@asteasolutions/zod-to-openapi";
-import { ResponseStatus, ServiceResponse } from "@/common";
+import { ResponseStatus, ServiceResponse } from "@/common/dtos/serviceResponse.dto";
 import express, { Request, Response, Router } from "express";
 import { StatusCodes } from "http-status-codes";
 import { z } from "zod";

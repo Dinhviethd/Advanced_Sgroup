@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 import { z } from 'zod';
-import { ServiceResponseSchema } from '../common';
+import { ServiceResponseSchema } from '@/common/dtos/serviceResponse.dto';
 import { HttpResponseBodySuccessDtoSchema } from '../common/dtos/httpResponseBodySuccess.dto';
 
 
