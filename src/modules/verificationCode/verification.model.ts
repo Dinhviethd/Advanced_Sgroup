@@ -2,22 +2,22 @@ import { PrimaryGeneratedColumn, Column, Entity, ManyToOne, CreateDateColumn } f
 import { verifiedCodeType } from '@/common/const/constants'
 import { User } from '@/modules/user/user.model'
 @Entity()
-export class VerifiedCode{
+export class VerifiedCode {
     @PrimaryGeneratedColumn()
     idVerifiedCode!: number;
 
-    @Column()
-    ExpiredAt!: Date
+    @Column({ type: "timestamp" })
+    ExpiredAt!: Date;
 
-    @CreateDateColumn({ 
-        type: "timestamp", 
-        default: () => "CURRENT_TIMESTAMP(6)", 
+    @CreateDateColumn({
+        type: "timestamp",
+        default: () => "CURRENT_TIMESTAMP(6)",
     })
-    createdAt!: Date; 
+    createdAt!: Date;
 
-    @Column({type: "enum" ,enum: verifiedCodeType})
+    @Column({ type: "enum", enum: verifiedCodeType })
     type!: verifiedCodeType;
 
-    @ManyToOne(()=> User, (user) => user.verifiedCodes)
+    @ManyToOne(() => User, (user) => user.verifiedCodes)
     user!: User;
 }

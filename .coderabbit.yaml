@@ -1,0 +1,16 @@
+version: 1
+
+reviews:
+  auto_review: true       # bật auto review
+  base_branches:          # nhánh nào sẽ auto review
+    - main
+    - dev
+  review_status: true     # hiện trạng thái review trong PR
+
+ignore:                   # bỏ qua file/thư mục không cần review
+  - node_modules/**
+  - dist/**
+  - build/**
+  - coverage/**
+  - .vscode/**
+  - .git/**

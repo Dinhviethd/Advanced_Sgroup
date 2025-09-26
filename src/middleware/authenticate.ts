@@ -2,6 +2,16 @@ import { RequestHandler } from "express";
 import appAssert from "@/common/utils/appAssert";
 import { UNAUTHORIZED, AppErrorCode } from  "@/common/const/constants";
 import { verifyAccessToken } from "@/common/utils/jwt";
+
+// Extend Express Request interface to include userId
+declare global {
+  namespace Express {
+    interface Request {
+      userId?: number;
+    }
+  }
+}
+
 export interface AccessTokenPayload {
   userId: number;
   iat?: number;
